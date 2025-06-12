@@ -1,7 +1,9 @@
+use enemy::*;
 use macroquad::prelude::*;
 use player::*;
 use text::*;
 
+mod enemy;
 mod player;
 mod text;
 
@@ -13,6 +15,12 @@ async fn main() {
 async fn game() {
     let mut player = Player::new(screen_width() / 2.0, screen_height() / 2.0);
 
+    let mut enemies = vec![
+        Enemy::new(100.0, 100.0, 30.0, 30.0, 2.0),
+        Enemy::new(300.0, 300.0, 30.0, 30.0, 1.5),
+        Enemy::new(500.0, 100.0, 30.0, 30.0, 2.5),
+    ];
+
     loop {
         clear_background(WHITE);
 
@@ -20,8 +28,12 @@ async fn game() {
         player.draw();
 
         let (player_x, player_y, player_can_dash) = player.fetch_data();
-
         draw_all_text(player_x, player_y, player_can_dash);
+
+        for enemy in enemies.iter_mut() {
+            enemy.update(&player);
+            enemy.draw();
+        }
 
         next_frame().await;
     }

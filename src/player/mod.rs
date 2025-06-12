@@ -1,5 +1,5 @@
 use macroquad::{
-    color::RED,
+    color::BLUE,
     input::{KeyCode, is_key_down, is_key_pressed},
     math::Vec2,
     shapes::draw_rectangle,
@@ -7,8 +7,8 @@ use macroquad::{
 };
 
 pub struct Player {
-    x: f32,
-    y: f32,
+    pub x: f32,
+    pub y: f32,
     speed: f32,
     dash_speed: f32,
     dash_time: f32,
@@ -78,7 +78,7 @@ impl Player {
     }
 
     pub fn draw(&self) {
-        draw_rectangle(self.x, self.y, 50.0, 50.0, RED);
+        draw_rectangle(self.x, self.y, 50.0, 50.0, BLUE);
     }
 
     fn start_dash(&mut self, direction: Vec2) {
