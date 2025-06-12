@@ -4,6 +4,7 @@ use macroquad::{
     math::Vec2,
     shapes::draw_rectangle,
     time::get_frame_time,
+    window::{screen_height, screen_width},
 };
 
 pub struct Player {
@@ -67,6 +68,9 @@ impl Player {
             self.x += direction.x * self.speed * get_frame_time();
             self.y += direction.y * self.speed * get_frame_time();
         }
+
+        self.x = self.x.clamp(0.0, screen_width() - 50.0);
+        self.y = self.y.clamp(0.0, screen_height() - 50.0);
 
         if !self.can_dash {
             self.dash_cooldown -= get_frame_time();
