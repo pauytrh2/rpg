@@ -27,8 +27,7 @@ async fn game() {
         player.update();
         player.draw();
 
-        let (player_x, player_y, player_can_dash) = player.fetch_data();
-        draw_all_text(player_x, player_y, player_can_dash);
+        draw_all_text(player.x, player.y, player.can_dash);
 
         for enemy in enemies.iter_mut() {
             enemy.update(&player);

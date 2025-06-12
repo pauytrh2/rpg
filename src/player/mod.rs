@@ -13,7 +13,7 @@ pub struct Player {
     dash_speed: f32,
     dash_time: f32,
     dash_cooldown: f32,
-    can_dash: bool,
+    pub can_dash: bool,
     is_dashing: bool,
     dash_direction: Vec2,
 }
@@ -92,9 +92,5 @@ impl Player {
 
     fn end_dash(&mut self) {
         self.is_dashing = false;
-    }
-
-    pub fn fetch_data(&self) -> (f32, f32, bool) {
-        (self.x, self.y, self.can_dash)
     }
 }
