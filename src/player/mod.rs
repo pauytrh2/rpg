@@ -1,4 +1,9 @@
-use macroquad::prelude::*;
+use macroquad::{
+    color::RED,
+    input::{KeyCode, is_key_down},
+    shapes::draw_rectangle,
+    time::get_frame_time,
+};
 
 pub struct Player {
     x: f32,

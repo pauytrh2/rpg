@@ -1,7 +1,9 @@
 use macroquad::prelude::*;
 use player::*;
+use text::*;
 
 mod player;
+mod text;
 
 #[macroquad::main("RPG")]
 async fn main() {
@@ -9,7 +11,7 @@ async fn main() {
 }
 
 async fn game() {
-    let mut player = Player::new(400.0, 300.0);
+    let mut player = Player::new(screen_width() / 2.0, screen_height() / 2.0);
 
     loop {
         clear_background(WHITE);
@@ -19,9 +21,7 @@ async fn game() {
 
         let (player_x, player_y) = player.get_position();
 
-        let position_text = format!("X: {}, Y: {}", player_x, player_y);
-
-        draw_text(&position_text, 10.0, 20.0, 20.0, BLACK);
+        draw_all_text(player_x, player_y);
 
         next_frame().await;
     }
