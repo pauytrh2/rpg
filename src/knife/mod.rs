@@ -19,7 +19,9 @@ impl Knife {
     }
 
     pub fn update(&mut self, player: &Player) {
-        let (player_x, player_y) = player.get_position();
+        let player_data = player.fetch_data();
+        let player_x = player_data.0;
+        let player_y = player_data.1;
         self.x = player_x - 10.0;
         self.y = player_y;
     }

@@ -25,9 +25,9 @@ async fn game() {
         knife.update(&player);
         knife.draw();
 
-        let (player_x, player_y) = player.get_position();
+        let (player_x, player_y, player_can_dash) = player.fetch_data();
 
-        draw_all_text(player_x, player_y);
+        draw_all_text(player_x, player_y, player_can_dash);
 
         next_frame().await;
     }
