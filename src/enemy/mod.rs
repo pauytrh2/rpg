@@ -1,5 +1,10 @@
 use crate::player::Player;
-use macroquad::{color::RED, shapes::draw_rectangle};
+use macroquad::{
+    color::RED,
+    shapes::draw_rectangle,
+    window::{screen_height, screen_width},
+};
+use rand::Rng;
 
 pub struct Enemy {
     pub x: f32,
@@ -35,5 +40,36 @@ impl Enemy {
 
     pub fn draw(&self) {
         draw_rectangle(self.x, self.y, self.width, self.height, RED);
+    }
+
+    pub fn get_new_enemy() -> Self {
+        let screen_width = screen_width();
+        let screen_height = screen_height();
+        let mut rng = rand::rng();
+
+        let spawn_margin = 50.0;
+
+        let (x, y) = match rng.random_range(0..4) {
+            0 => (
+                -spawn_margin,
+                rng.random_range(-spawn_margin..screen_height + spawn_margin),
+            ),
+            1 => (
+                screen_width + spawn_margin,
+                rng.random_range(-spawn_margin..screen_height + spawn_margin),
+            ),
+            2 => (
+                rng.random_range(-spawn_margin..screen_width + spawn_margin),
+                -spawn_margin,
+            ),
+            _ => (
+                rng.random_range(-spawn_margin..screen_width + spawn_margin),
+                screen_height + spawn_margin,
+            ),
+        };
+
+        let speed = rng.random_range(0.5..2.0);
+
+        Enemy::new(x, y, 30.0, 30.0, speed)
     }
 }

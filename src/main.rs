@@ -15,11 +15,10 @@ async fn main() {
 async fn game() {
     let mut player = Player::new(screen_width() / 2.0, screen_height() / 2.0);
 
-    let mut enemies = vec![
-        Enemy::new(100.0, 100.0, 30.0, 30.0, 2.0),
-        Enemy::new(300.0, 300.0, 30.0, 30.0, 1.5),
-        Enemy::new(500.0, 100.0, 30.0, 30.0, 2.5),
-    ];
+    let mut enemies = Vec::new();
+
+    let mut spawn_timer = 0.0;
+    let spawn_interval = 3.0;
 
     loop {
         clear_background(WHITE);
@@ -28,6 +27,17 @@ async fn game() {
         player.draw();
 
         draw_all_text(player.x, player.y, player.can_dash);
+
+        spawn_timer += get_frame_time();
+
+        spawn_timer += get_frame_time();
+
+        if spawn_timer >= spawn_interval {
+            spawn_timer = 0.0;
+
+            let enemy = Enemy::get_new_enemy();
+            enemies.push(enemy);
+        }
 
         for enemy in enemies.iter_mut() {
             enemy.update(&player);
