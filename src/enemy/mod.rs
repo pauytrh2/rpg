@@ -73,3 +73,15 @@ impl Enemy {
         Enemy::new(x, y, 30.0, 30.0, speed)
     }
 }
+
+pub fn update_enemies(enemies: &mut Vec<Enemy>, player: &Player) {
+    for enemy in enemies.iter_mut() {
+        enemy.update(&player);
+        enemy.draw();
+    }
+}
+
+pub fn spawn_new_enemy(enemies: &mut Vec<Enemy>) {
+    let enemy = Enemy::get_new_enemy();
+    enemies.push(enemy);
+}

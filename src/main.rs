@@ -2,10 +2,12 @@ use enemy::*;
 use macroquad::prelude::*;
 use player::*;
 use text::*;
+use utils::*;
 
 mod enemy;
 mod player;
 mod text;
+mod utils;
 
 #[macroquad::main("RPG")]
 async fn main() {
@@ -18,7 +20,7 @@ async fn game() {
     let mut enemies = Vec::new();
 
     let mut spawn_timer = 0.0;
-    let spawn_interval = 3.0;
+    const SPAWN_INTERVAL: f32 = 3.0;
 
     loop {
         clear_background(WHITE);
@@ -30,17 +32,13 @@ async fn game() {
 
         spawn_timer += get_frame_time();
 
-        if spawn_timer >= spawn_interval {
+        if should_spawn(spawn_timer, SPAWN_INTERVAL) {
             spawn_timer = 0.0;
 
-            let enemy = Enemy::get_new_enemy();
-            enemies.push(enemy);
+            spawn_new_enemy(&mut enemies);
         }
 
-        for enemy in enemies.iter_mut() {
-            enemy.update(&player);
-            enemy.draw();
-        }
+        update_enemies(&mut enemies, &player);
 
         next_frame().await;
     }
