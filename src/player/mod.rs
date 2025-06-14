@@ -15,7 +15,7 @@ pub struct Player {
     dash_time: f32,
     dash_cooldown: f32,
     pub can_dash: bool,
-    is_dashing: bool,
+    pub is_dashing: bool,
     dash_direction: Vec2,
 }
 
