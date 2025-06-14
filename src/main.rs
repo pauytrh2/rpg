@@ -30,8 +30,6 @@ async fn game() {
 
         spawn_timer += get_frame_time();
 
-        spawn_timer += get_frame_time();
-
         if spawn_timer >= spawn_interval {
             spawn_timer = 0.0;
 
