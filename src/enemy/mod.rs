@@ -1,4 +1,4 @@
-use crate::player::Player;
+use crate::{killbox::KillBox, player::Player};
 use macroquad::{
     color::RED,
     shapes::draw_rectangle,
@@ -9,8 +9,8 @@ use rand::Rng;
 pub struct Enemy {
     pub x: f32,
     pub y: f32,
-    height: f32,
-    width: f32,
+    pub height: f32,
+    pub width: f32,
     speed: f32,
 }
 
@@ -74,11 +74,19 @@ impl Enemy {
     }
 }
 
-pub fn update_enemies(enemies: &mut Vec<Enemy>, player: &Player) {
+pub fn update_enemies(enemies: &mut Vec<Enemy>, killbox: &KillBox, player: &Player) {
     for enemy in enemies.iter_mut() {
         enemy.update(&player);
         enemy.draw();
     }
+
+    enemies.retain(|enemy| {
+        if killbox.collides_with(enemy) {
+            false
+        } else {
+            true
+        }
+    });
 }
 
 pub fn spawn_new_enemy(enemies: &mut Vec<Enemy>) {

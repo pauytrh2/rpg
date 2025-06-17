@@ -43,7 +43,7 @@ async fn game() {
             spawn_new_enemy(&mut enemies);
         }
 
-        update_enemies(&mut enemies, &player);
+        update_enemies(&mut enemies, &killbox, &player);
 
         next_frame().await;
     }

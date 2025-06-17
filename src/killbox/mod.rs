@@ -1,5 +1,7 @@
 use macroquad::{color::GRAY, shapes::draw_line};
 
+use crate::{enemy::Enemy, utils::lines_intersect};
+
 const LENGTH: f32 = 40.0;
 const HALF_LENGTH: f32 = LENGTH / 2.0;
 const OFFSET_DISTANCE: f32 = 45.0;
@@ -58,5 +60,33 @@ impl KillBox {
 
     fn calc_angle(&self) -> f32 {
         self.angle + std::f32::consts::FRAC_PI_2
+    }
+
+    pub fn collides_with(&self, enemy: &Enemy) -> bool {
+        if !self.enable {
+            return false;
+        }
+
+        let (x1, y1, x2, y2) = self.calc_position();
+
+        let ex = enemy.x;
+        let ey = enemy.y;
+        let ew = enemy.width;
+        let eh = enemy.height;
+
+        let rect_lines = [
+            (ex, ey, ex + ew, ey),
+            (ex, ey + eh, ex + ew, ey + eh),
+            (ex, ey, ex, ey + eh),
+            (ex + ew, ey, ex + ew, ey + eh),
+        ];
+
+        for &(rx1, ry1, rx2, ry2) in &rect_lines {
+            if lines_intersect(x1, y1, x2, y2, rx1, ry1, rx2, ry2) {
+                return true;
+            }
+        }
+
+        false
     }
 }
