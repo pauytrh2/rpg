@@ -4,7 +4,7 @@ use crate::{enemy::Enemy, utils::lines_intersect};
 
 const LENGTH: f32 = 40.0;
 const HALF_LENGTH: f32 = LENGTH / 2.0;
-const OFFSET_DISTANCE: f32 = 45.0;
+const OFFSET_DISTANCE: f32 = 50.0;
 const THICKNESS: f32 = 5.0;
 
 pub struct KillBox {
