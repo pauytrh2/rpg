@@ -1,6 +1,6 @@
 use enemy::*;
 use killbox::*;
-use macroquad::prelude::*;
+use macroquad::prelude::{KeyCode::F3, *};
 use player::*;
 use text::*;
 use utils::*;
@@ -25,6 +25,8 @@ async fn game() {
     let mut spawn_timer = 0.0;
     const SPAWN_INTERVAL: f32 = 3.0;
 
+    let mut should_draw_text = false;
+
     loop {
         clear_background(WHITE);
 
@@ -34,7 +36,13 @@ async fn game() {
         killbox.update(player.x, player.y, player.is_dashing, player.dash_angle());
         killbox.draw();
 
-        draw_all_text(player.x, player.y, player.can_dash);
+        if is_key_pressed(F3) {
+            should_draw_text = !should_draw_text;
+        }
+
+        if should_draw_text == true {
+            draw_all_text(player.x, player.y, player.can_dash);
+        }
 
         spawn_timer += get_frame_time();
 
