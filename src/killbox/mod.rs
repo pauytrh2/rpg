@@ -1,10 +1,15 @@
-use macroquad::color::GRAY;
-use macroquad::shapes::draw_rectangle;
+use macroquad::{color::GRAY, shapes::draw_line};
+
+const LENGTH: f32 = 40.0;
+const HALF_LENGTH: f32 = LENGTH / 2.0;
+const OFFSET_DISTANCE: f32 = 45.0;
+const THICKNESS: f32 = 5.0;
 
 pub struct KillBox {
     x: f32,
     y: f32,
     enable: bool,
+    angle: f32,
 }
 
 impl KillBox {
@@ -13,18 +18,45 @@ impl KillBox {
             x,
             y,
             enable: false,
+            angle: 0.0,
         }
     }
 
-    pub fn update(&mut self, x: f32, y: f32, is_dashing: bool) {
+    pub fn update(&mut self, x: f32, y: f32, is_dashing: bool, angle: f32) {
         self.x = x;
         self.y = y;
         self.enable = is_dashing;
+        self.angle = angle;
     }
 
     pub fn draw(&self) {
         if self.enable {
-            draw_rectangle(self.x, self.y, 40.0, 5.0, GRAY);
+            let (x1, y1, x2, y2) = self.calc_position();
+            draw_line(x1, y1, x2, y2, THICKNESS, GRAY);
         }
+    }
+
+    fn calc_position(&self) -> (f32, f32, f32, f32) {
+        let mut center_x = self.x + 25.0;
+        let mut center_y = self.y + 25.0;
+
+        center_x += self.angle.cos() * OFFSET_DISTANCE;
+        center_y += self.angle.sin() * OFFSET_DISTANCE;
+
+        let angle = self.calc_angle();
+
+        let dx = angle.cos() * HALF_LENGTH;
+        let dy = angle.sin() * HALF_LENGTH;
+
+        let x1 = center_x - dx;
+        let y1 = center_y - dy;
+        let x2 = center_x + dx;
+        let y2 = center_y + dy;
+
+        (x1, y1, x2, y2)
+    }
+
+    fn calc_angle(&self) -> f32 {
+        self.angle + std::f32::consts::FRAC_PI_2
     }
 }

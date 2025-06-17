@@ -85,6 +85,10 @@ impl Player {
         draw_rectangle(self.x, self.y, 50.0, 50.0, BLUE);
     }
 
+    pub fn dash_angle(&self) -> f32 {
+        self.dash_direction.y.atan2(self.dash_direction.x)
+    }
+
     fn start_dash(&mut self, direction: Vec2) {
         if self.can_dash {
             self.is_dashing = true;

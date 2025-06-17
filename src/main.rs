@@ -31,7 +31,7 @@ async fn game() {
         player.update();
         player.draw();
 
-        killbox.update(player.x, player.y, player.is_dashing);
+        killbox.update(player.x, player.y, player.is_dashing, player.dash_angle());
         killbox.draw();
 
         draw_all_text(player.x, player.y, player.can_dash);
