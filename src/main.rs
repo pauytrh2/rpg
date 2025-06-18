@@ -1,7 +1,7 @@
 use dash_indicator::*;
 use enemy::*;
 use killbox::*;
-use macroquad::prelude::{KeyCode::F3, *};
+use macroquad::prelude::*;
 use player::*;
 use text::*;
 use utils::*;
@@ -20,9 +20,7 @@ async fn main() {
 
 async fn game() {
     let mut player = Player::new(screen_width() / 2.0, screen_height() / 2.0);
-
     let mut killbox = KillBox::new(player.x, player.y);
-
     let mut dash_indicator = DashIndicator::new(0.0, 0.0);
 
     let mut enemies = Vec::new();
@@ -34,7 +32,7 @@ async fn game() {
     loop {
         clear_background(WHITE);
 
-        if is_key_pressed(F3) {
+        if is_key_pressed(KeyCode::F3) {
             should_draw_text = !should_draw_text;
         }
 
