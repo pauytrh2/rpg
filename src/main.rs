@@ -36,7 +36,7 @@ async fn game() {
             should_draw_text = !should_draw_text;
         }
 
-        if should_draw_text == true {
+        if should_draw_text {
             draw_all_text(player.x, player.y, player.can_dash);
         }
 
