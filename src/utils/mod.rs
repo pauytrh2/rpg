@@ -2,6 +2,7 @@ pub fn should_spawn(spawn_timer: f32, spawn_interval: f32) -> bool {
     spawn_timer >= spawn_interval
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn lines_intersect(
     x1: f32,
     y1: f32,
