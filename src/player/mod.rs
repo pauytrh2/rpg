@@ -17,6 +17,7 @@ pub struct Player {
     pub can_dash: bool,
     pub is_dashing: bool,
     dash_direction: Vec2,
+    last_dash_direction: Vec2,
 }
 
 impl Player {
@@ -31,6 +32,7 @@ impl Player {
             can_dash: true,
             is_dashing: false,
             dash_direction: Vec2::ZERO,
+            last_dash_direction: Vec2::new(0.0, -1.0),
         }
     }
 
@@ -52,8 +54,17 @@ impl Player {
 
         direction = direction.normalize_or_zero();
 
+        if direction.length_squared() > 0.0 {
+            self.last_dash_direction = direction;
+        }
+
         if self.can_dash && is_key_pressed(KeyCode::Space) {
-            self.start_dash(direction);
+            let dash_dir = if direction.length_squared() > 0.0 {
+                direction
+            } else {
+                self.last_dash_direction
+            };
+            self.start_dash(dash_dir);
         }
 
         if self.is_dashing {
