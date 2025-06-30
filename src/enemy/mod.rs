@@ -76,17 +76,11 @@ impl Enemy {
 
 pub fn update_enemies(enemies: &mut Vec<Enemy>, killbox: &KillBox, player: &Player) {
     for enemy in enemies.iter_mut() {
-        enemy.update(&player);
+        enemy.update(player);
         enemy.draw();
     }
 
-    enemies.retain(|enemy| {
-        if killbox.collides_with(enemy) {
-            false
-        } else {
-            true
-        }
-    });
+    enemies.retain(|enemy| !killbox.collides_with(enemy));
 }
 
 pub fn spawn_new_enemy(enemies: &mut Vec<Enemy>) {
