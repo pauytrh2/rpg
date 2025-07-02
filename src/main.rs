@@ -2,6 +2,7 @@ use dash_indicator::*;
 use enemy::*;
 use killbox::*;
 use macroquad::prelude::*;
+use parser::*;
 use player::*;
 use text::*;
 use utils::*;
@@ -9,6 +10,7 @@ use utils::*;
 mod dash_indicator;
 mod enemy;
 mod killbox;
+mod parser;
 mod player;
 mod text;
 mod utils;
@@ -19,6 +21,8 @@ async fn main() {
 }
 
 async fn game() {
+    let should_round_fps = parse_args();
+
     let mut player = Player::new(screen_width() / 2.0, screen_height() / 2.0);
     let mut killbox = KillBox::new(player.x, player.y);
     let mut dash_indicator = DashIndicator::new(0.0, 0.0);
@@ -37,7 +41,7 @@ async fn game() {
         }
 
         if should_draw_text {
-            draw_all_text(player.x, player.y, player.can_dash);
+            draw_all_text(player.x, player.y, player.can_dash, should_round_fps);
         }
 
         spawn_timer += get_frame_time();
