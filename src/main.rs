@@ -1,5 +1,6 @@
 use dash_indicator::*;
 use enemy::*;
+use healthbar::*;
 use killbox::*;
 use macroquad::prelude::*;
 use parser::*;
@@ -9,6 +10,7 @@ use utils::*;
 
 mod dash_indicator;
 mod enemy;
+mod healthbar;
 mod killbox;
 mod parser;
 mod player;
@@ -26,6 +28,7 @@ async fn game() {
     let mut player = Player::new(screen_width() / 2.0, screen_height() / 2.0);
     let mut killbox = KillBox::new(player.x, player.y);
     let mut dash_indicator = DashIndicator::new(0.0, 0.0);
+    let mut healthbar = Healthbar::new(0.0, 0.0);
 
     let mut enemies = Vec::new();
     let mut spawn_timer = 0.0;
@@ -61,6 +64,9 @@ async fn game() {
 
         dash_indicator.update(&player);
         dash_indicator.draw();
+
+        healthbar.update(&player);
+        healthbar.draw();
 
         next_frame().await;
     }

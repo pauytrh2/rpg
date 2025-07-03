@@ -28,8 +28,8 @@ impl DashIndicator {
 
     pub fn draw(&self) {
         match self.enabled {
-            true => draw_circle(self.x + 25.0, self.y - 15.0, 10.0, GREEN),
-            false => draw_rectangle(self.x + 15.0, self.y - 25.0, 20.0, 20.0, ORANGE),
+            true => draw_circle(self.x + 25.0, self.y - 25.0, 10.0, GREEN),
+            false => draw_rectangle(self.x + 15.0, self.y - 35.0, 20.0, 20.0, ORANGE),
         }
     }
 }
