@@ -1,9 +1,16 @@
 use macroquad::{
-    color::{GREEN, ORANGE},
+    color::{Color, GREEN, ORANGE},
     shapes::{draw_circle, draw_rectangle},
 };
 
 use crate::player::Player;
+
+const CIRCLE_COLOR: Color = GREEN;
+const RADIUS: f32 = 10.0;
+
+const RECTANGLE_COLOR: Color = ORANGE;
+const WIDTH: f32 = 20.0;
+const HEIGHT: f32 = 20.0;
 
 pub struct DashIndicator {
     x: f32,
@@ -28,8 +35,8 @@ impl DashIndicator {
 
     pub fn draw(&self) {
         match self.enabled {
-            true => draw_circle(self.x + 25.0, self.y - 20.0, 10.0, GREEN),
-            false => draw_rectangle(self.x + 15.0, self.y - 30.0, 20.0, 20.0, ORANGE),
+            true => draw_circle(self.x + 25.0, self.y - 20.0, RADIUS, CIRCLE_COLOR),
+            false => draw_rectangle(self.x + 15.0, self.y - 30.0, WIDTH, HEIGHT, RECTANGLE_COLOR),
         }
     }
 }

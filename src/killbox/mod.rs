@@ -1,11 +1,18 @@
-use macroquad::{color::GRAY, shapes::draw_line};
+use macroquad::{
+    color::{Color, GRAY},
+    shapes::draw_line,
+};
 
-use crate::{enemy::Enemy, utils::lines_intersect};
+use crate::{
+    enemy::{self, Enemy},
+    utils::lines_intersect,
+};
 
 const LENGTH: f32 = 40.0;
 const HALF_LENGTH: f32 = LENGTH / 2.0;
 const OFFSET_DISTANCE: f32 = 50.0;
 const THICKNESS: f32 = 5.0;
+const COLOR: Color = GRAY;
 
 pub struct KillBox {
     x: f32,
@@ -34,7 +41,7 @@ impl KillBox {
     pub fn draw(&self) {
         if self.enable {
             let (x1, y1, x2, y2) = self.calc_position();
-            draw_line(x1, y1, x2, y2, THICKNESS, GRAY);
+            draw_line(x1, y1, x2, y2, THICKNESS, COLOR);
         }
     }
 
@@ -71,8 +78,8 @@ impl KillBox {
 
         let ex = enemy.x;
         let ey = enemy.y;
-        let ew = enemy.width;
-        let eh = enemy.height;
+        let ew = enemy::WIDTH;
+        let eh = enemy::HEIGHT;
 
         let rect_lines = [
             (ex, ey, ex + ew, ey),

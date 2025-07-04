@@ -7,11 +7,12 @@ use macroquad::{
     window::{screen_height, screen_width},
 };
 
+const SPEED: f32 = 200.0;
+const DASH_SPEED: f32 = 400.0;
+
 pub struct Player {
     pub x: f32,
     pub y: f32,
-    speed: f32,
-    dash_speed: f32,
     dash_time: f32,
     dash_cooldown: f32,
     pub can_dash: bool,
@@ -26,8 +27,6 @@ impl Player {
         Player {
             x,
             y,
-            speed: 200.0,
-            dash_speed: 400.0,
             dash_time: 0.0,
             dash_cooldown: 1.0,
             can_dash: true,
@@ -70,16 +69,16 @@ impl Player {
         }
 
         if self.is_dashing {
-            self.x += self.dash_direction.x * self.dash_speed * get_frame_time();
-            self.y += self.dash_direction.y * self.dash_speed * get_frame_time();
+            self.x += self.dash_direction.x * DASH_SPEED * get_frame_time();
+            self.y += self.dash_direction.y * DASH_SPEED * get_frame_time();
             self.dash_time -= get_frame_time();
 
             if self.dash_time <= 0.0 {
                 self.end_dash();
             }
         } else {
-            self.x += direction.x * self.speed * get_frame_time();
-            self.y += direction.y * self.speed * get_frame_time();
+            self.x += direction.x * SPEED * get_frame_time();
+            self.y += direction.y * SPEED * get_frame_time();
         }
 
         self.x = self.x.clamp(0.0, screen_width() - 50.0);

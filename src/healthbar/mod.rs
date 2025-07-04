@@ -1,6 +1,15 @@
-use macroquad::{color::RED, shapes::draw_rectangle};
+use macroquad::{
+    color::{Color, RED},
+    shapes::draw_rectangle,
+};
 
 use crate::player::Player;
+
+const X: f32 = 690.0;
+const Y: f32 = 580.0;
+const WIDTH: f32 = 100.0;
+const HEIGHT: f32 = 8.0;
+const COLOR: Color = RED;
 
 pub struct Healthbar {
     health: f32,
@@ -16,6 +25,6 @@ impl Healthbar {
     }
 
     pub fn draw(&self) {
-        draw_rectangle(690.0, 580.0, 100.0, 8.0, RED);
+        draw_rectangle(X, Y, WIDTH, HEIGHT, COLOR);
     }
 }

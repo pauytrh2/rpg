@@ -1,28 +1,24 @@
 use crate::{killbox::KillBox, player::Player};
 use macroquad::{
-    color::RED,
+    color::{Color, RED},
     shapes::draw_rectangle,
     window::{screen_height, screen_width},
 };
 use rand::Rng;
 
+pub const WIDTH: f32 = 30.0;
+pub const HEIGHT: f32 = 30.0;
+const COLOR: Color = RED;
+
 pub struct Enemy {
     pub x: f32,
     pub y: f32,
-    pub height: f32,
-    pub width: f32,
     speed: f32,
 }
 
 impl Enemy {
-    pub fn new(x: f32, y: f32, height: f32, width: f32, speed: f32) -> Self {
-        Enemy {
-            x,
-            y,
-            height,
-            width,
-            speed,
-        }
+    pub fn new(x: f32, y: f32, speed: f32) -> Self {
+        Enemy { x, y, speed }
     }
 
     pub fn update(&mut self, player: &Player) {
@@ -39,7 +35,7 @@ impl Enemy {
     }
 
     pub fn draw(&self) {
-        draw_rectangle(self.x, self.y, self.width, self.height, RED);
+        draw_rectangle(self.x, self.y, WIDTH, HEIGHT, COLOR);
     }
 
     pub fn get_new_enemy() -> Self {
@@ -70,7 +66,7 @@ impl Enemy {
 
         let speed = rng.random_range(0.5..2.0);
 
-        Enemy::new(x, y, 30.0, 30.0, speed)
+        Enemy::new(x, y, speed)
     }
 }
 
