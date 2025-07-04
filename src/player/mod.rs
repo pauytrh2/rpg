@@ -18,6 +18,7 @@ pub struct Player {
     pub is_dashing: bool,
     dash_direction: Vec2,
     last_dash_direction: Vec2,
+    pub health: f32,
 }
 
 impl Player {
@@ -33,6 +34,7 @@ impl Player {
             is_dashing: false,
             dash_direction: Vec2::ZERO,
             last_dash_direction: Vec2::new(0.0, -1.0),
+            health: 100.0,
         }
     }
 
