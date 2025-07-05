@@ -27,6 +27,20 @@ async fn game() {
 
     set_fullscreen(is_fullscreen);
 
+    // After calling set_fullscreen() the screen_width() and screen_height() functions still return original (non-fullscreen) dimensions for 3 frames
+
+    // https://github.com/not-fl3/macroquad/issues/237
+
+    // dbg!(format!(
+    //     "Width: {}, Height: {}",
+    //     screen_width(),
+    //     screen_height()
+    // ));
+
+    for _ in 0..3 {
+        next_frame().await;
+    }
+
     let mut player = Player::new(screen_width() / 2.0, screen_height() / 2.0);
     let mut killbox = KillBox::new(player.x, player.y);
     let mut dash_indicator = DashIndicator::new(0.0, 0.0);
