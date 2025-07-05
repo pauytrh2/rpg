@@ -4,7 +4,7 @@ pub fn parse_args() -> (bool, bool) {
     let args: Vec<String> = env::args().collect();
     (
         contains(&args, "--round-fps"),
-        contains(&args, "--fullscreen"),
+        !contains(&args, "--no-fullscreen"),
     )
 }
 
