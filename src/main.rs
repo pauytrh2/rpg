@@ -23,7 +23,9 @@ async fn main() {
 }
 
 async fn game() {
-    let should_round_fps = parse_args();
+    let (should_round_fps, is_fullscreen) = parse_args();
+
+    set_fullscreen(is_fullscreen);
 
     let mut player = Player::new(screen_width() / 2.0, screen_height() / 2.0);
     let mut killbox = KillBox::new(player.x, player.y);
