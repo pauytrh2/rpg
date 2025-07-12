@@ -61,29 +61,29 @@ async fn game() {
 
         if should_draw_text {
             draw_all_text(player.x, player.y, player.can_dash, should_round_fps);
+
+            spawn_timer += get_frame_time();
+
+            if should_spawn(spawn_timer, SPAWN_INTERVAL) {
+                spawn_timer = 0.0;
+                spawn_new_enemy(&mut enemies);
+            }
+
+            update_enemies(&mut enemies, &killbox, &player);
+
+            killbox.update(player.x, player.y, player.is_dashing, player.dash_angle());
+            killbox.draw();
+
+            player.update();
+            player.draw();
+
+            dash_indicator.update(&player);
+            dash_indicator.draw();
+
+            healthbar.update(&player);
+            healthbar.draw();
+
+            next_frame().await;
         }
-
-        spawn_timer += get_frame_time();
-
-        if should_spawn(spawn_timer, SPAWN_INTERVAL) {
-            spawn_timer = 0.0;
-            spawn_new_enemy(&mut enemies);
-        }
-
-        update_enemies(&mut enemies, &killbox, &player);
-
-        killbox.update(player.x, player.y, player.is_dashing, player.dash_angle());
-        killbox.draw();
-
-        player.update();
-        player.draw();
-
-        dash_indicator.update(&player);
-        dash_indicator.draw();
-
-        healthbar.update(&player);
-        healthbar.draw();
-
-        next_frame().await;
     }
 }
